@@ -59,17 +59,19 @@ namespace daeth5Exploration4.DatabaseConnector
                 return false;
             }
         }
-        public void InsertNewName(string name)
+
+        public string GetName()
         {
+            string result = null;
             OpenConnection();
             {
                 try
                 {
                     MySqlCommand comm = connection.CreateCommand();
 
-                    comm.CommandText = $"INSERT INTO example (name, date) VALUES ({name}, NOW());";
+                    comm.CommandText = "Select * from example;";
 
-                    comm.ExecuteNonQuery();
+                    result = comm.ExecuteScalar().ToString();
                 }
                 catch (Exception ex)
                 {
@@ -77,6 +79,7 @@ namespace daeth5Exploration4.DatabaseConnector
                 }
             }
             CloseConnection();
-        } 
+            return result;
+        }
     }
 }

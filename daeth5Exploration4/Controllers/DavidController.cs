@@ -13,25 +13,17 @@ namespace daeth5Exploration4.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
             ExplorationService explorationService = new ExplorationService();
-            return new string[]
+            var result = explorationService.GetName();
+            if (result != null)
             {
-                explorationService.GetName() , 
-                explorationService.GetExploration()
-            };
-        }
+                return result;
+            }
 
-        //PUT api/values/5
-        [HttpPut("{id}")]
-        public ActionResult Put(string name)
-        {
-            Console.Write("Service called\n");
-            ExplorationService  explorationService= new ExplorationService();
-            return explorationService.NewEntry(name);
+            return BadRequest();
         }
-
     }
 
 }
